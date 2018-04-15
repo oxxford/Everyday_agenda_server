@@ -3,55 +3,66 @@
 
 namespace Everyday_agend_server
 {
-    class DatabaseAdapter
+    static class DatabaseAdapter
     {
-        public int getImageId(DateTime date, int userId)
+        static DatabaseAdapter()
+        {
+            //TODO
+            //intialize database
+        }
+
+        public static int getImageId(DateTime date, int userId)
         {
             //TODO
             return 0;
         }
 
-        public int getVideoId(DateTime date, int userId)
+        public static int getVideoId(DateTime date, int userId)
         {
             //TODO
             return 0;
         }
 
-        public String getText(DateTime date, int userId)
+        public static String getText(DateTime date, int userId)
         {
             //TODO
             return null;
         }
 
-        public int getUserId(String username, String password)
+        public static int getUserId(String username, String password)
         {
             //TODO
             return 0;
         }
 
-        public void storeImageId(DateTime date, int userId, int imageId)
+        public static void storeImageId(DateTime date, int userId, int imageId)
         {
             //TODO
         }
 
-        public void storeVideoId(DateTime date, int userId, int videoId)
+        public static void storeVideoId(DateTime date, int userId, int videoId)
         {
             //TODO
         }
 
-        public void storeText(DateTime date, int userId, String text)
+        public static void storeText(DateTime date, int userId, String text)
         {
             //TODO
         }
 
-        public void createUserEntry(String username, String password)
+        public static void createUserEntry(String username, String password)
         {
             //TODO
         }
 
-        public bool isImpressionPresent(DateTime date, int userId)
+        public static bool isImpressionPresent(DateTime date, int userId)
         {
             //TODO
+            return false;
+        }
+
+        public static bool isValidUserId(int userId)
+        {
             return false;
         }
     }

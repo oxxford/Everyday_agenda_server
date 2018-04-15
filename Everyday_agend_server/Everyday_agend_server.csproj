@@ -49,8 +49,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseAdapter.cs" />
+    <Compile Include="GetModules.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StoreModules.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

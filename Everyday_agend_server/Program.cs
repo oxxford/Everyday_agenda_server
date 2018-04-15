@@ -2,6 +2,7 @@
 using System.IO;
 using Nancy;
 using Nancy.Hosting.Self;
+using Newtonsoft.Json;
 
 namespace Everyday_agend_server
 {
@@ -22,7 +23,7 @@ namespace Everyday_agend_server
     {
         public HelloModule()
         {
-            Put["/"] = parameters =>
+            Get["/"] = parameters =>
             {
                 /*int day = Int32.Parse(parameters.day);
                 int month = Int32.Parse(parameters.month); 
@@ -30,12 +31,20 @@ namespace Everyday_agend_server
                 
                 DateTime date = new DateTime(year, month, day);
                 Console.Write(date);*/
+                JsonStorieModel[] arr = new JsonStorieModel[1];
 
-                using (var fileStream = File.Create("\\lol.mp4"))
+                arr[0] = new JsonStorieModel
                 {
-                    Context.Request.Body.CopyTo(fileStream);
-                }
-                return "Hello from Everyday agenda!";
+                    date = new DateTime(1, 1, 1),
+                    imageid = "lol"
+                };
+
+                String json = JsonConvert.SerializeObject(arr);
+
+                var response = (Response)json;
+                response.ContentType = "application/json";
+
+                return response;
             };
         }
     }

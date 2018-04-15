@@ -4,7 +4,7 @@ using Nancy;
 
 namespace Everyday_agend_server
 {
-    class GetModules : NancyModule
+    public class GetModules : NancyModule
     {
         public GetModules()
         {
@@ -12,18 +12,18 @@ namespace Everyday_agend_server
             {
                 //TODO verification
 
-                return createFileResponse("image/png", parameters.userid, parameters.imageid);
+                return createFileResponse("image/png", parameters.userid, parameters.imageid, ".png");
             };
 
             Get["/getvideo/userid={userid}&videoid={videoid}"] = parameters =>
             {
                 //TODO verification
 
-                return createFileResponse("video/mp4", parameters.userid, parameters.videoid);
+                return createFileResponse("video/mp4", parameters.userid, parameters.videoid, ".mp4");
             };
         }
 
-        private Response createFileResponse(String contentType, String userId, String itemId)
+        private Response createFileResponse(String contentType, String userId, String itemId, String type)
         {
             return new Response
             {
@@ -31,7 +31,7 @@ namespace Everyday_agend_server
 
                 Contents = s =>
                 {
-                    String fileName = "\\" + userId + "\\" + itemId;
+                    String fileName = "\\" + userId + "\\" + itemId + type;
                     using (var stream = new FileStream(fileName, FileMode.Open))
                         stream.CopyTo(s);
                 }

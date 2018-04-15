@@ -71,7 +71,7 @@
     <Compile Include="JsonStorieModel.cs" />
     <Compile Include="JsonTextModel.cs" />
     <Compile Include="JsonUserModel.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="StartingPoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StoreModules.cs" />
     <Compile Include="StoriesModule.cs" />

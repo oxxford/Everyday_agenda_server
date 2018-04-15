@@ -1,12 +1,10 @@
 ﻿using System;
-using System.IO;
 using Nancy;
 using Nancy.Hosting.Self;
-using Newtonsoft.Json;
 
 namespace Everyday_agend_server
 {
-    class Program
+    class StartingPoint
     {
         static void Main(string[] args)
         {
@@ -30,7 +28,7 @@ namespace Everyday_agend_server
                 int year = Int32.Parse(parameters.year);
                 
                 DateTime date = new DateTime(year, month, day);
-                Console.Write(date);*/
+                Console.Write(date);
                 JsonStorieModel[] arr = new JsonStorieModel[1];
 
                 arr[0] = new JsonStorieModel
@@ -42,9 +40,9 @@ namespace Everyday_agend_server
                 String json = JsonConvert.SerializeObject(arr);
 
                 var response = (Response)json;
-                response.ContentType = "application/json";
+                response.ContentType = "application/json";*/
 
-                return response;
+                return "Hello from Everydat Agenda!";
             };
         }
     }

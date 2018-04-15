@@ -8,8 +8,9 @@ namespace Everyday_agend_server
     {
         public ImpressionModule()
         {
-            Get["/impression/userid={userid}&date={day}.{month}.{year}"] = parameters =>
+            Get["/impression/userid={userid}&date={year}-{month}-{day}"] = parameters =>
             {
+                Console.WriteLine("lol");
                 DateTime date = new DateTime(parameters.year, parameters.month, parameters.day);
 
                 String imageid = DatabaseAdapter.getImageId(date, parameters.userid);

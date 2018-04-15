@@ -9,7 +9,7 @@ namespace Everyday_agend_server
     {
         public StoriesModule()
         {
-            Get["/getstories/userid={userid}&date={day}.{month}.{year}"] = parameters =>
+            Get["/getstories/userid={userid}&date={year}-{month}-{day}"] = parameters =>
             {
                 DateTime date = new DateTime(parameters.year, parameters.month, parameters.day);
                 int userid = parameters.userid;
@@ -39,13 +39,19 @@ namespace Everyday_agend_server
 
         private JsonStorieModel getModelFromDate(DateTime date, int userid, int months, int years)
         {
-            int month = date.Month < months ? 12 - months + date.Month : date.Month - months;
-            int year = date.Month < months ? date.Year - years - 1 : date.Year - years;
+            int month = date.Month <= months ? 12 - months + date.Month : date.Month - months;
+            int year = date.Month <= months ? date.Year - years - 1 : date.Year - years;
+
+            Console.WriteLine(year);
+            Console.WriteLine(month);
+            Console.WriteLine(date.Day);
+
+            DateTime newDate = new DateTime(year, month, date.Day);
 
             return new JsonStorieModel
             {
-                date = new DateTime(year, month, date.Day),
-                imageid = DatabaseAdapter.getImageId(date, userid)
+                date = newDate,
+                imageid = DatabaseAdapter.getImageId(newDate, userid)
             };
         }
     }

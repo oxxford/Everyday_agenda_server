@@ -32,7 +32,7 @@ namespace Everyday_agend_server
          */
         public static string getVideoId(DateTime date, int userId)
         {
-            string result = getMultimedia(date, userId, "image_id");
+            string result = getMultimedia(date, userId, "video_id");
             if (result.Equals(""))
                 return "";
             else
@@ -175,8 +175,6 @@ namespace Everyday_agend_server
                     {
                         result = reader[0].ToString();
                     }
-                    else
-                        throw new Exception("Database is not responding");
                     return result;
                 }
             }

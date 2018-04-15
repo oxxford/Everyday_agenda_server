@@ -21,15 +21,15 @@ namespace Everyday_agend_server
     {
         public HelloModule()
         {
-            Get["/{name}/date={day}.{month}.{year}"] = parameters =>
+            Get["/"] = parameters =>
             {
-                int day = Int32.Parse(parameters.day);
+                /*int day = Int32.Parse(parameters.day);
                 int month = Int32.Parse(parameters.month); 
                 int year = Int32.Parse(parameters.year);
                 
                 DateTime date = new DateTime(year, month, day);
-                Console.Write(date);
-                return parameters.name;
+                Console.Write(date);*/
+                return "Hello from Everyday agenda!";
             };
         }
     }

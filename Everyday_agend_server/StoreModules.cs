@@ -8,22 +8,26 @@ using Nancy.Routing.Constraints;
 
 namespace Everyday_agend_server
 {
-    class StoreModules : NancyModule
+    public class StoreModules : NancyModule
     {
         public StoreModules()
         {
-            Post["/saveimage/userid={userid}&date={day}.{month}.{year}"] = parameters =>
+            Put["/saveimage/userid={userid}&date={day}.{month}.{year}"] = parameters =>
             {
-                if (DatabaseAdapter.isValidUserId(parameters.userid))
+                if (!DatabaseAdapter.isValidUserId(parameters.userid))
                 {
-                    Context.Response.StatusCode = HttpStatusCode.BadRequest;
-                    Context.Response.ReasonPhrase = "Invalid user id";
-                    return null;
+                    var response = new Response
+                    {
+                        StatusCode = HttpStatusCode.BadRequest,
+                        ReasonPhrase = "Invalid user id!"
+                    };
+
+                    return response;
                 }
 
-                return null;
+                //TODO
+                return Context.Response;
             };
         }
-        
     }
 }

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using Nancy;
-using Nancy.Routing.Constraints;
+using Newtonsoft.Json;
 
 namespace Everyday_agend_server
 {
@@ -14,7 +11,7 @@ namespace Everyday_agend_server
         {
             Put["/saveimage/userid={userid}&date={day}.{month}.{year}"] = parameters =>
             {
-                if (!DatabaseAdapter.isValidUserId(parameters.userid))
+                /*if (!DatabaseAdapter.isValidUserId(parameters.userid))
                 {
                     var response = new Response
                     {
@@ -23,10 +20,49 @@ namespace Everyday_agend_server
                     };
 
                     return response;
+                }*/
+
+                int userId = parameters.userid;
+                String imageId = "image" + parameters.day + parameters.month + parameters.year;
+                DateTime date = new DateTime(parameters.year, parameters.month, parameters.day);
+
+                DatabaseAdapter.storeImageId(date, userId, imageId);
+
+                using (var fileStream = File.Create("\\" + userId + "\\" + imageId + ".png"))
+                {
+                    Context.Request.Body.CopyTo(fileStream);
                 }
 
-                //TODO
-                return Context.Response;
+                return HttpStatusCode.OK;
+            };
+
+            Put["/savevideo/userid={userid}&date={day}.{month}.{year}"] = parameters =>
+            {
+                int userId = parameters.userid;
+                String videoId = "video" + parameters.day + parameters.month + parameters.year;
+                DateTime date = new DateTime(parameters.year, parameters.month, parameters.day);
+
+                DatabaseAdapter.storeVideoId(date, userId, videoId);
+
+                using (var fileStream = File.Create("\\" + userId + "\\" + videoId + ".mp4"))
+                {
+                    Context.Request.Body.CopyTo(fileStream);
+                }
+
+                return HttpStatusCode.OK;
+            };
+
+            Put["/savetext/userid={userid}&date={day}.{month}.{year}"] = parameters =>
+            {
+                int userId = parameters.userid;
+                DateTime date = new DateTime(parameters.year, parameters.month, parameters.day);
+
+                String s = Context.Request.Body.ToString();
+
+                JsonTextModel obj = JsonConvert.DeserializeObject<JsonTextModel>(s);
+
+                DatabaseAdapter.storeText(date, userId, obj.text);
+                return 0;
             };
         }
     }

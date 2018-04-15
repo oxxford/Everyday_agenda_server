@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Nancy;
 using Nancy.Hosting.Self;
 
@@ -21,7 +22,7 @@ namespace Everyday_agend_server
     {
         public HelloModule()
         {
-            Get["/"] = parameters =>
+            Put["/"] = parameters =>
             {
                 /*int day = Int32.Parse(parameters.day);
                 int month = Int32.Parse(parameters.month); 
@@ -29,6 +30,11 @@ namespace Everyday_agend_server
                 
                 DateTime date = new DateTime(year, month, day);
                 Console.Write(date);*/
+
+                using (var fileStream = File.Create("\\lol.mp4"))
+                {
+                    Context.Request.Body.CopyTo(fileStream);
+                }
                 return "Hello from Everyday agenda!";
             };
         }

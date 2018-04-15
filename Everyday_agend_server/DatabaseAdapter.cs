@@ -11,16 +11,16 @@ namespace Everyday_agend_server
             //intialize database
         }
 
-        public static int getImageId(DateTime date, int userId)
+        public static String getImageId(DateTime date, int userId)
         {
             //TODO
-            return 0;
+            return null;
         }
 
-        public static int getVideoId(DateTime date, int userId)
+        public static String getVideoId(DateTime date, int userId)
         {
             //TODO
-            return 0;
+            return null;
         }
 
         public static String getText(DateTime date, int userId)
@@ -35,12 +35,12 @@ namespace Everyday_agend_server
             return 0;
         }
 
-        public static void storeImageId(DateTime date, int userId, int imageId)
+        public static void storeImageId(DateTime date, int userId, String imageId)
         {
             //TODO
         }
 
-        public static void storeVideoId(DateTime date, int userId, int videoId)
+        public static void storeVideoId(DateTime date, int userId, String videoId)
         {
             //TODO
         }

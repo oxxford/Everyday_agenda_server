@@ -7,10 +7,10 @@ namespace Everyday_agend_server
 {
     static class DatabaseAdapter
     {
-        private static string server = "server=dzesov.me;";
-        private static string user = "user=dima;";
-        private static string database = "database=everyday_agenda;";
-        private static string password = "password=verySecure;";
+        private static string server = "server=secret;";
+        private static string user = "user=secret;";
+        private static string database = "database=secret;";
+        private static string password = "password=secret;";
         private static string connectionString = server + user + database + password;
       
         /*

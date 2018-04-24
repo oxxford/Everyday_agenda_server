@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
+using HttpMultipartParser;
 using Nancy;
 using Nancy.Security;
 using Newtonsoft.Json;
@@ -21,9 +23,11 @@ namespace Everyday_agend_server
 
                 DatabaseAdapter.storeImageId(date, userid, imageId);
 
+                var parser = new MultipartFormDataParser(Request.Body);
+                var file = parser.Files.First();
                 using (var fileStream = File.Create("\\" + userid + "\\" + imageId + ".png"))
                 {
-                    Context.Request.Body.CopyTo(fileStream);
+                    file.Data.CopyTo(fileStream);
                 }
 
                 return HttpStatusCode.OK;
@@ -38,9 +42,11 @@ namespace Everyday_agend_server
 
                 DatabaseAdapter.storeVideoId(date, userid, videoId);
 
+                var parser = new MultipartFormDataParser(Request.Body);
+                var file = parser.Files.First();
                 using (var fileStream = File.Create("\\" + userid + "\\" + videoId + ".mp4"))
                 {
-                    Context.Request.Body.CopyTo(fileStream);
+                    file.Data.CopyTo(fileStream);
                 }
 
                 return HttpStatusCode.OK;

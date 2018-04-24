@@ -8,6 +8,6 @@ namespace Everyday_agend_server
 {
     public class JsonUserModel
     {
-        public int userId;
+        public int Token { get; set; }
     }
 }

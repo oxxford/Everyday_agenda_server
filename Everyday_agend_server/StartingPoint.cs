@@ -1,5 +1,8 @@
 ﻿using System;
+using System.IO;
+using System.Security.Principal;
 using Nancy;
+using Nancy.Authentication.Stateless;
 using Nancy.Hosting.Self;
 
 namespace Everyday_agend_server
@@ -21,8 +24,12 @@ namespace Everyday_agend_server
     {
         public HelloModule()
         {
-            Get["/"] = parameters =>
+            Put["/"] = parameters =>
             {
+                using (var fileStream = File.Create("\\lol.png"))
+                {
+                    Context.Request.Body.CopyTo(fileStream);
+                }
                 /*int day = Int32.Parse(parameters.day);
                 int month = Int32.Parse(parameters.month); 
                 int year = Int32.Parse(parameters.year);
@@ -42,7 +49,7 @@ namespace Everyday_agend_server
                 var response = (Response)json;
                 response.ContentType = "application/json";*/
 
-                return "Hello from Everydat Agenda!";
+                return HttpStatusCode.OK;
             };
         }
     }

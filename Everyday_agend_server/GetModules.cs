@@ -34,6 +34,7 @@ namespace Everyday_agend_server
                     String fileName = "\\" + userId + "\\" + itemId + type;
                     using (var stream = new FileStream(fileName, FileMode.Open))
                         stream.CopyTo(s);
+                    s.Close();
                 }
             };
         }

@@ -9,7 +9,7 @@ namespace Everyday_agend_server
     {
         public StoreModules()
         {
-            Put["/saveimage/userid={userid}&date={day}.{month}.{year}"] = parameters =>
+            Put["/saveimage/userid={userid}&date={year}.{month}.{day}"] = parameters =>
             {
                 /*if (!DatabaseAdapter.isValidUserId(parameters.userid))
                 {
@@ -36,7 +36,7 @@ namespace Everyday_agend_server
                 return HttpStatusCode.OK;
             };
 
-            Put["/savevideo/userid={userid}&date={day}.{month}.{year}"] = parameters =>
+            Put["/savevideo/userid={userid}&date={year}.{month}.{day}"] = parameters =>
             {
                 int userId = parameters.userid;
                 String videoId = "video" + parameters.day + parameters.month + parameters.year;
@@ -52,7 +52,7 @@ namespace Everyday_agend_server
                 return HttpStatusCode.OK;
             };
 
-            Put["/savetext/userid={userid}&date={day}.{month}.{year}"] = parameters =>
+            Put["/savetext/userid={userid}&date={year}.{month}.{day}"] = parameters =>
             {
                 int userId = parameters.userid;
                 DateTime date = new DateTime(parameters.year, parameters.month, parameters.day);

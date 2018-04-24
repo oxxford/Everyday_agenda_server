@@ -10,18 +10,17 @@ namespace Everyday_agend_server
         {
             Get["/auth/login={login}&password={password}"] = parameters =>
             {
-                int userId = DatabaseAdapter.getUserId(parameters.login, parameters.password);
+                var apiKey = AuthorizationHelper.ValidateUser(parameters.login, parameters.password);
 
-                if (userId == -1)
+                if (apiKey == null)
                     return new Response
                     {
-                        StatusCode = HttpStatusCode.BadRequest,
-                        ReasonPhrase = "Invalid user id!"
+                        StatusCode = HttpStatusCode.Unauthorized
                     };
 
                 JsonUserModel m = new JsonUserModel
                 {
-                    userId = userId
+                    Token = apiKey
                 };
 
                 String json = JsonConvert.SerializeObject(m);
@@ -30,6 +29,13 @@ namespace Everyday_agend_server
                 response.ContentType = "application/json";
 
                 return response;
+            };
+
+            Delete["/"] = args =>
+            {
+                var apiKey = Request.Headers.Authorization;
+                AuthorizationHelper.RemoveApiKey(apiKey);
+                return new Response { StatusCode = HttpStatusCode.OK };
             };
         }
     }

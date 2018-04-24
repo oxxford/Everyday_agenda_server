@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Nancy;
+using Nancy.Security;
 using Newtonsoft.Json;
 
 namespace Everyday_agend_server
@@ -9,26 +10,18 @@ namespace Everyday_agend_server
     {
         public StoreModules()
         {
-            Put["/saveimage/userid={userid}&date={year}.{month}.{day}"] = parameters =>
+            this.RequiresAuthentication();
+
+            Put["/saveimage/date={year}-{month}-{day}"] = parameters =>
             {
-                /*if (!DatabaseAdapter.isValidUserId(parameters.userid))
-                {
-                    var response = new Response
-                    {
-                        StatusCode = HttpStatusCode.BadRequest,
-                        ReasonPhrase = "Invalid user id!"
-                    };
+                int userid = AuthorizationHelper.GetUserFromApiKey(Request.Headers.Authorization).Id;
 
-                    return response;
-                }*/
-
-                int userId = parameters.userid;
                 String imageId = "image" + parameters.day + parameters.month + parameters.year;
                 DateTime date = new DateTime(parameters.year, parameters.month, parameters.day);
 
-                DatabaseAdapter.storeImageId(date, userId, imageId);
+                DatabaseAdapter.storeImageId(date, userid, imageId);
 
-                using (var fileStream = File.Create("\\" + userId + "\\" + imageId + ".png"))
+                using (var fileStream = File.Create("\\" + userid + "\\" + imageId + ".png"))
                 {
                     Context.Request.Body.CopyTo(fileStream);
                 }
@@ -36,15 +29,16 @@ namespace Everyday_agend_server
                 return HttpStatusCode.OK;
             };
 
-            Put["/savevideo/userid={userid}&date={year}.{month}.{day}"] = parameters =>
+            Put["/savevideo/date={year}-{month}-{day}"] = parameters =>
             {
-                int userId = parameters.userid;
+                int userid = AuthorizationHelper.GetUserFromApiKey(Request.Headers.Authorization).Id;
+
                 String videoId = "video" + parameters.day + parameters.month + parameters.year;
                 DateTime date = new DateTime(parameters.year, parameters.month, parameters.day);
 
-                DatabaseAdapter.storeVideoId(date, userId, videoId);
+                DatabaseAdapter.storeVideoId(date, userid, videoId);
 
-                using (var fileStream = File.Create("\\" + userId + "\\" + videoId + ".mp4"))
+                using (var fileStream = File.Create("\\" + userid + "\\" + videoId + ".mp4"))
                 {
                     Context.Request.Body.CopyTo(fileStream);
                 }
@@ -52,16 +46,17 @@ namespace Everyday_agend_server
                 return HttpStatusCode.OK;
             };
 
-            Put["/savetext/userid={userid}&date={year}.{month}.{day}"] = parameters =>
+            Put["/savetext/date={year}-{month}-{day}"] = parameters =>
             {
-                int userId = parameters.userid;
+                int userid = AuthorizationHelper.GetUserFromApiKey(Request.Headers.Authorization).Id;
+
                 DateTime date = new DateTime(parameters.year, parameters.month, parameters.day);
 
                 String s = Context.Request.Body.ToString();
 
                 JsonTextModel obj = JsonConvert.DeserializeObject<JsonTextModel>(s);
 
-                DatabaseAdapter.storeText(date, userId, obj.text);
+                DatabaseAdapter.storeText(date, userid, obj.text);
                 return 0;
             };
         }

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.IO;
-using System.Security.Principal;
+using System.Linq;
+using HttpMultipartParser;
 using Nancy;
-using Nancy.Authentication.Stateless;
 using Nancy.Hosting.Self;
+using Nancy.Security;
 
 namespace Everyday_agend_server
 {
@@ -24,32 +25,21 @@ namespace Everyday_agend_server
     {
         public HelloModule()
         {
-            Put["/"] = parameters =>
+            //this.RequiresAuthentication();
+
+            Get["/"] = parameters =>
             {
-                using (var fileStream = File.Create("\\lol.png"))
+                /*var parser = new MultipartFormDataParser(Request.Body);
+                var file = parser.Files.First();
+                //string filename = file.FileName;
+                //Stream data = file.Data;
+                using (var fileStream = File.Create("\\lol.mp4"))
                 {
-                    Context.Request.Body.CopyTo(fileStream);
-                }
-                /*int day = Int32.Parse(parameters.day);
-                int month = Int32.Parse(parameters.month); 
-                int year = Int32.Parse(parameters.year);
-                
-                DateTime date = new DateTime(year, month, day);
-                Console.Write(date);
-                JsonStorieModel[] arr = new JsonStorieModel[1];
+                    file.Data.CopyTo(fileStream);
+                }*/
+                return Response.AsFile("\\lol");
 
-                arr[0] = new JsonStorieModel
-                {
-                    date = new DateTime(1, 1, 1),
-                    imageid = "lol"
-                };
-
-                String json = JsonConvert.SerializeObject(arr);
-
-                var response = (Response)json;
-                response.ContentType = "application/json";*/
-
-                return HttpStatusCode.OK;
+                //return "Hello!";
             };
         }
     }

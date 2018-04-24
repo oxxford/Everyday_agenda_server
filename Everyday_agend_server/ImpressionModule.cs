@@ -1,5 +1,6 @@
 ﻿using System;
 using Nancy;
+using Nancy.Security;
 using Newtonsoft.Json;
 
 namespace Everyday_agend_server
@@ -8,14 +9,17 @@ namespace Everyday_agend_server
     {
         public ImpressionModule()
         {
-            Get["/impression/userid={userid}&date={year}-{month}-{day}"] = parameters =>
+            this.RequiresAuthentication();
+
+            Get["/impression/date={year}-{month}-{day}"] = parameters =>
             {
-                Console.WriteLine("lol");
+                int userid = AuthorizationHelper.GetUserFromApiKey(Request.Headers.Authorization).Id;
+
                 DateTime date = new DateTime(parameters.year, parameters.month, parameters.day);
 
-                String imageid = DatabaseAdapter.getImageId(date, parameters.userid);
-                String videoid = DatabaseAdapter.getVideoId(date, parameters.userid);
-                String text = DatabaseAdapter.getText(date, parameters.userid);
+                String imageid = DatabaseAdapter.getImageId(date, userid);
+                String videoid = DatabaseAdapter.getVideoId(date, userid);
+                String text = DatabaseAdapter.getText(date, userid);
 
                 JsonImpressionModel model = new JsonImpressionModel
                 {

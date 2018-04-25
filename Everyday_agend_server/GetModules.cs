@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Nancy;
+using Nancy.Responses;
 using Nancy.Security;
 
 namespace Everyday_agend_server
@@ -9,20 +10,20 @@ namespace Everyday_agend_server
     {
         public GetModules()
         {
-            this.RequiresAuthentication();
+            //this.RequiresAuthentication();
 
-            Get["/getimage/imageid={imageid}"] = parameters =>
+            Get["/getimage/token={token}&imageid={imageid}"] = parameters =>
             {
                 //TODO verification
-                int userid = AuthorizationHelper.GetUserFromApiKey(Request.Headers.Authorization).Id;
+                int userid = AuthorizationHelper.GetUserFromApiKey(parameters.token).Id;
 
                 return createFileResponse("image/png", userid, parameters.imageid, ".png");
             };
 
-            Get["/getvideo/videoid={videoid}"] = parameters =>
+            Get["/getvideo/token={token}&videoid={videoid}"] = parameters =>
             {
                 //TODO verification
-                int userid = AuthorizationHelper.GetUserFromApiKey(Request.Headers.Authorization).Id;
+                int userid = AuthorizationHelper.GetUserFromApiKey(parameters.token).Id;
 
                 return createFileResponse("video/mp4", userid, parameters.videoid, ".mp4");
             };
@@ -30,19 +31,21 @@ namespace Everyday_agend_server
 
         private Response createFileResponse(String contentType, int userId, String itemId, String type)
         {
-            return new Response
-            {
-                ContentType = contentType,
 
-                Contents = s =>
-                {
-                    String fileName = "\\" + userId + "\\" + itemId + type;
-                    using (var stream = new FileStream(fileName, FileMode.Open))
-                        stream.CopyTo(s);
-                    s.Flush();
-                    s.Close();
-                }
-            };
+            String fileName = "C:\\Users\\g.dzesov\\server\\" + userId + "\\" + itemId + type;
+            var file = new FileStream(fileName, FileMode.Open);
+
+            Console.Write(MimeTypes.GetMimeType(fileName));
+            
+
+            var response = new StreamResponse(() => file, MimeTypes.GetMimeType(fileName));
+
+            response.ContentType = contentType;
+
+            file.Close();
+
+            return response;
+
         }
     }
 }

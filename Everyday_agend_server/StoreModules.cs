@@ -25,7 +25,7 @@ namespace Everyday_agend_server
 
                 var parser = new MultipartFormDataParser(Request.Body);
                 var file = parser.Files.First();
-                using (var fileStream = File.Create("\\" + userid + "\\" + imageId + ".png"))
+                using (var fileStream = File.Create("C:\\Users\\g.dzesov\\server\\" + userid + "\\" + imageId + ".png"))
                 {
                     file.Data.CopyTo(fileStream);
                 }
@@ -44,7 +44,7 @@ namespace Everyday_agend_server
 
                 var parser = new MultipartFormDataParser(Request.Body);
                 var file = parser.Files.First();
-                using (var fileStream = File.Create("\\" + userid + "\\" + videoId + ".mp4"))
+                using (var fileStream = File.Create("C:\\Users\\g.dzesov\\server\\" + userid + "\\" + videoId + ".mp4"))
                 {
                     file.Data.CopyTo(fileStream);
                 }

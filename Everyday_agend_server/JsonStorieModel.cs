@@ -4,7 +4,7 @@ namespace Everyday_agend_server
 {
     public class JsonStorieModel
     {
-        public DateTime date;
+        public String date;
         public String imageid;
     }
 }

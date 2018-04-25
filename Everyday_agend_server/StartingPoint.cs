@@ -13,6 +13,8 @@ namespace Everyday_agend_server
         {
             using (var host = new NancyHost(new Uri("http://localhost:8080")))
             {
+                DateTime date = new DateTime(2018, 01, 02);
+                Console.WriteLine(date.Year + "-" + date.Month + "-" + date.Day);
                 host.Start();
                 Console.WriteLine("Running on http://localhost:8080");
                 Console.ReadLine();
@@ -32,7 +34,7 @@ namespace Everyday_agend_server
                 //return fileResponse;
 
 
-                var response = new Response
+                /*var response = new Response
                 {
                     Headers = { ["Connection"] = "keep-alive", ["Content-Type"] = "video/mp4" },
 
@@ -52,10 +54,11 @@ namespace Everyday_agend_server
 
                 Console.WriteLine(response.Headers.TryGetValue("Connection",out l));
 
-                return response;
+                return response;*/
                 //var stream = new FileStream(@"C:\7\video112018.mp4", FileMode.Open);
 
                 //return Response.FromStream(stream, "video/mp4").WithHeader("Connection", "keep-alive");
+                return ";";
             };
         }
     }

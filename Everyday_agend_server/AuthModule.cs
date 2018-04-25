@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using Nancy;
 using Newtonsoft.Json;
@@ -47,10 +46,12 @@ namespace Everyday_agend_server
                     String login = parameters.login;
                     String password = parameters.password;
 
+                    Console.WriteLine(login + password);
+
                     DatabaseAdapter.createUserEntry(login, password);
 
                     int userid = DatabaseAdapter.getUserId(login, password);
-
+                    
                     Directory.CreateDirectory("\\" + userid);
 
                     var apiKey = AuthorizationHelper.ValidateUser(login, password);

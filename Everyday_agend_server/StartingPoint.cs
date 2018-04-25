@@ -4,6 +4,7 @@ using System.Linq;
 using HttpMultipartParser;
 using Nancy;
 using Nancy.Hosting.Self;
+using Nancy.Responses;
 using Nancy.Security;
 
 namespace Everyday_agend_server
@@ -29,17 +30,8 @@ namespace Everyday_agend_server
 
             Get["/"] = parameters =>
             {
-                /*var parser = new MultipartFormDataParser(Request.Body);
-                var file = parser.Files.First();
-                //string filename = file.FileName;
-                //Stream data = file.Data;
-                using (var fileStream = File.Create("\\lol.mp4"))
-                {
-                    file.Data.CopyTo(fileStream);
-                }*/
-                return Response.AsFile("\\lol");
-
-                //return "Hello!";
+                return Response.AsFile(@"C:\7\image112018",
+                    "image/png");
             };
         }
     }

@@ -21,11 +21,14 @@ namespace Everyday_agend_server
                 String videoid = DatabaseAdapter.getVideoId(date, userid);
                 String text = DatabaseAdapter.getText(date, userid);
 
+                bool exists = !(imageid.Equals("") && videoid.Equals("") && text.Equals(""));
+
                 JsonImpressionModel model = new JsonImpressionModel
                 {
-                    imageid = imageid,
-                    videoid = videoid,
-                    text = text
+                    Exists = exists,
+                    Imageid = imageid,
+                    Videoid = videoid,
+                    Text = text
                 };
 
                 String json = JsonConvert.SerializeObject(model);

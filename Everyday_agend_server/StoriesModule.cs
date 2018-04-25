@@ -18,12 +18,12 @@ namespace Everyday_agend_server
 
                 JsonStorieModel[] arr = new JsonStorieModel[6];
 
-                arr[0] = getModelFromDate(date, userid, 1, 0);
-                arr[1] = getModelFromDate(date, userid, 3, 0);
-                arr[2] = getModelFromDate(date, userid, 6, 0);
-                arr[3] = getModelFromDate(date, userid, 0, 1);
-                arr[4] = getModelFromDate(date, userid, 0, 2);
-                arr[5] = getModelFromDate(date, userid, 0, 3);
+                arr[0] = getModelFromDate(date.Date, userid, 1, 0);
+                arr[1] = getModelFromDate(date.Date, userid, 3, 0);
+                arr[2] = getModelFromDate(date.Date, userid, 6, 0);
+                arr[3] = getModelFromDate(date.Date, userid, 0, 1);
+                arr[4] = getModelFromDate(date.Date, userid, 0, 2);
+                arr[5] = getModelFromDate(date.Date, userid, 0, 3);
 
                 String json = JsonConvert.SerializeObject(arr);
 

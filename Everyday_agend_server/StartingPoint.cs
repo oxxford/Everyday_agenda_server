@@ -31,10 +31,12 @@ namespace Everyday_agend_server
                 //GenericFileResponse fileResponse = new GenericFileResponse(@"C:\7\image112018.png");
                 //return fileResponse;
 
-            
+
                 var response = new Response
                 {
-                    ContentType = "video/mp4",
+                    Headers = { ["Connection"] = "keep-alive", ["Content-Type"] = "video/mp4" },
+
+                    //ContentType = "video/mp4",
 
                     Contents = s =>
                     {
@@ -46,12 +48,14 @@ namespace Everyday_agend_server
                     }
                 };
 
-                response.Headers.Add("Connection", "keep-alive");
+                string l = "";
 
-                long fileSize = new FileInfo(@"C:\7\video112018.mp4").Length;
-                response.Headers.Add("Content-length", fileSize.ToString());
+                Console.WriteLine(response.Headers.TryGetValue("Connection",out l));
 
                 return response;
+                //var stream = new FileStream(@"C:\7\video112018.mp4", FileMode.Open);
+
+                //return Response.FromStream(stream, "video/mp4").WithHeader("Connection", "keep-alive");
             };
         }
     }

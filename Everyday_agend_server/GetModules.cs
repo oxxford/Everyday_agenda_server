@@ -1,8 +1,7 @@
 ﻿using System;
 using System.IO;
 using Nancy;
-using Nancy.Responses;
-using Nancy.Security;
+
 
 namespace Everyday_agend_server
 {
@@ -32,19 +31,19 @@ namespace Everyday_agend_server
         private Response createFileResponse(String contentType, int userId, String itemId, String type)
         {
 
-            String fileName = "C:\\Users\\g.dzesov\\server\\" + userId + "\\" + itemId + type;
-            var file = new FileStream(fileName, FileMode.Open);
+            return new Response
+            {
+                ContentType = contentType,
 
-            Console.Write(MimeTypes.GetMimeType(fileName));
-            
-
-            var response = new StreamResponse(() => file, MimeTypes.GetMimeType(fileName));
-
-            response.ContentType = contentType;
-
-            file.Close();
-
-            return response;
+                Contents = s =>
+                {
+                    String fileName = "C:\\Users\\g.dzesov\\server\\" + userId + "\\" + itemId + type;
+                    using (var stream = new FileStream(fileName, FileMode.Open))
+                        stream.CopyTo(s);
+                    s.Flush();
+                    s.Close();
+                }
+            };
 
         }
     }

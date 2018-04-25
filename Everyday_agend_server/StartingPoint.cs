@@ -26,12 +26,9 @@ namespace Everyday_agend_server
     {
         public HelloModule()
         {
-            //this.RequiresAuthentication();
-
             Get["/"] = parameters =>
             {
-                return Response.AsFile(@"C:\7\image112018",
-                    "image/png");
+                return Response.AsFile(@"C:\7\image112018.png","image/png");
             };
         }
     }

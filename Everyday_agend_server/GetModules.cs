@@ -32,18 +32,18 @@ namespace Everyday_agend_server
         private Response createFileResponse(String contentType, int userId, String itemId, String type)
         {
 
-            String fileName = "\\" + userId + "\\" + itemId + type;
+            String fileName = "C:\\Users\\g.dzesov\\server\\" + userId + "\\" + itemId + type;
             var file = new FileStream(fileName, FileMode.Open);
-            
-            Console.Write(MimeTypes.GetMimeType(fileName));
 
+            Console.Write(MimeTypes.GetMimeType(fileName));
+            
 
             var response = new StreamResponse(() => file, MimeTypes.GetMimeType(fileName));
 
             response.ContentType = contentType;
 
             file.Close();
-            
+
             return response;
 
         }

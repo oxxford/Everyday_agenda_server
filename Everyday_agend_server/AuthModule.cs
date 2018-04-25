@@ -51,8 +51,8 @@ namespace Everyday_agend_server
                     DatabaseAdapter.createUserEntry(login, password);
 
                     int userid = DatabaseAdapter.getUserId(login, password);
-                    
-                    Directory.CreateDirectory("\\" + userid);
+
+                    Directory.CreateDirectory("C:\\Users\\g.dzesov\\server\\" + userid);
 
                     var apiKey = AuthorizationHelper.ValidateUser(login, password);
 

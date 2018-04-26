@@ -3,6 +3,9 @@ using Nancy.Security;
 
 namespace Everyday_agend_server
 {
+    /*
+     * An instance of user identity that is logged in
+     */
     public class Identity : IUserIdentity
     {
         public Identity(int id)

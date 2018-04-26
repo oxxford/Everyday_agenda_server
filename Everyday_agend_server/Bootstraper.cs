@@ -7,6 +7,9 @@ using Nancy.TinyIoc;
 
 namespace Everyday_agend_server
 {
+    /*
+     * Configures what actions to do when starting, controls authentication
+     */
     public class Bootstrapper : DefaultNancyBootstrapper
     {
         protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
@@ -28,7 +31,7 @@ namespace Everyday_agend_server
                 {
                     var jwtToken = ctx.Request.Headers.Authorization;
 
-                    return AuthorizationHelper.GetUserFromApiKey(jwtToken);
+                    return AuthenticationHelper.GetUserFromApiKey(jwtToken);
                     
                 });
 

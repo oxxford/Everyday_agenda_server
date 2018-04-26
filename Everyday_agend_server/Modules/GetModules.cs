@@ -1,34 +1,39 @@
 ﻿using System;
 using System.IO;
-using System.Linq.Expressions;
 using Nancy;
 
 
-namespace Everyday_agend_server
+namespace Everyday_agend_server.Modules
 {
     public class GetModules : NancyModule
     {
         public GetModules()
         {
             //this.RequiresAuthentication();
-
+            /*
+             * Gets image from its id and user token
+             */
             Get["/getimage/token={token}&imageid={imageid}"] = parameters =>
             {
-                //TODO verification
-                int userid = AuthorizationHelper.GetUserFromApiKey(parameters.token).Id;
+                int userid = AuthenticationHelper.GetUserFromApiKey(parameters.token).Id;
 
                 return createFileResponse("image/png", userid, parameters.imageid, ".png");
             };
 
+            /*
+             * Gets video from its id and user token
+             */
             Get["/getvideo/token={token}&videoid={videoid}"] = parameters =>
             {
-                //TODO verification
-                int userid = AuthorizationHelper.GetUserFromApiKey(parameters.token).Id;
+                int userid = AuthenticationHelper.GetUserFromApiKey(parameters.token).Id;
 
                 return createFileResponse("video/mp4", userid, parameters.videoid, ".mp4");
             };
         }
 
+        /*
+         * Returns response with included file and headers
+         */
         private Response createFileResponse(String contentType, int userId, String itemId, String type)
         {
             String fileName = "C:\\Users\\g.dzesov\\server\\" + userId + "\\" + itemId + type;

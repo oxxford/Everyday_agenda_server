@@ -73,21 +73,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthModule.cs" />
-    <Compile Include="AuthorizationHelper.cs" />
+    <Compile Include="Modules\AuthModule.cs" />
+    <Compile Include="AuthenticationHelper.cs" />
     <Compile Include="Bootstraper.cs" />
     <Compile Include="DatabaseAdapter.cs" />
-    <Compile Include="GetModules.cs" />
+    <Compile Include="Modules\GetModules.cs" />
     <Compile Include="Identity.cs" />
-    <Compile Include="ImpressionModule.cs" />
-    <Compile Include="JsonImpressionModel.cs" />
-    <Compile Include="JsonStorieModel.cs" />
-    <Compile Include="JsonTextModel.cs" />
-    <Compile Include="JsonUserModel.cs" />
+    <Compile Include="Modules\ImpressionModule.cs" />
+    <Compile Include="JsonModels\JsonImpressionModel.cs" />
+    <Compile Include="JsonModels\JsonStorieModel.cs" />
+    <Compile Include="JsonModels\JsonTextModel.cs" />
+    <Compile Include="JsonModels\JsonUserModel.cs" />
     <Compile Include="StartingPoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StoreModules.cs" />
-    <Compile Include="StoriesModule.cs" />
+    <Compile Include="Modules\StoreModules.cs" />
+    <Compile Include="Modules\StoriesModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

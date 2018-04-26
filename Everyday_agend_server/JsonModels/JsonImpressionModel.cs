@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Everyday_agend_server
+namespace Everyday_agend_server.JsonModels
 {
     public class JsonImpressionModel
     {

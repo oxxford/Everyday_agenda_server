@@ -1,9 +1,10 @@
 ﻿using System;
+using Everyday_agend_server.JsonModels;
 using Nancy;
 using Nancy.Security;
 using Newtonsoft.Json;
 
-namespace Everyday_agend_server
+namespace Everyday_agend_server.Modules
 {
     public class StoriesModule : NancyModule
     {
@@ -11,10 +12,13 @@ namespace Everyday_agend_server
         {
             this.RequiresAuthentication();
 
+            /*
+             * Returns stories for user on specified date
+             */
             Get["/getstories/date={year}-{month}-{day}"] = parameters =>
             {
                 DateTime date = new DateTime(parameters.year, parameters.month, parameters.day);
-                int userid = AuthorizationHelper.GetUserFromApiKey(Request.Headers.Authorization).Id;
+                int userid = AuthenticationHelper.GetUserFromApiKey(Request.Headers.Authorization).Id;
 
                 JsonStorieModel[] arr = new JsonStorieModel[6];
 
@@ -34,6 +38,9 @@ namespace Everyday_agend_server
             };
         }
 
+        /*
+         * Parse dates and returns models with stories
+         */
         private JsonStorieModel getModelFromDate(DateTime date, int userid, int months, int years)
         {
             int month = date.Month <= months ? 12 - months + date.Month : date.Month - months;

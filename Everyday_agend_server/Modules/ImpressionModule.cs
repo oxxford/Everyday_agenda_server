@@ -1,9 +1,10 @@
 ﻿using System;
+using Everyday_agend_server.JsonModels;
 using Nancy;
 using Nancy.Security;
 using Newtonsoft.Json;
 
-namespace Everyday_agend_server
+namespace Everyday_agend_server.Modules
 {
     public class ImpressionModule : NancyModule
     {
@@ -11,9 +12,12 @@ namespace Everyday_agend_server
         {
             this.RequiresAuthentication();
 
+            /*
+             * Returns an impression for specified date. Requires authentication
+             */
             Get["/impression/date={year}-{month}-{day}"] = parameters =>
             {
-                int userid = AuthorizationHelper.GetUserFromApiKey(Request.Headers.Authorization).Id;
+                int userid = AuthenticationHelper.GetUserFromApiKey(Request.Headers.Authorization).Id;
 
                 DateTime date = new DateTime(parameters.year, parameters.month, parameters.day);
 

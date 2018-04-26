@@ -271,11 +271,5 @@ namespace Everyday_agend_server
                 }
             }
         }
-
-        public static int getUserIdFromToken(string token)
-        {
-            return 0;
-        }
-
     }
 }

@@ -1,17 +1,21 @@
 ﻿using System;
 using System.IO;
+using Everyday_agend_server.JsonModels;
 using Nancy;
 using Newtonsoft.Json;
 
-namespace Everyday_agend_server
+namespace Everyday_agend_server.Modules
 {
     public class AuthModule : NancyModule
     {
         public AuthModule() : base("/auth")
         {
+            /*
+             * user's sing in
+             */
             Get["/signin/login={login}&password={password}"] = parameters =>
             {
-                var apiKey = AuthorizationHelper.ValidateUser(parameters.login, parameters.password);
+                var apiKey = AuthenticationHelper.ValidateUser(parameters.login, parameters.password);
 
                 if (apiKey == null)
                     return new Response
@@ -32,13 +36,19 @@ namespace Everyday_agend_server
                 return response;
             };
 
+            /*
+             * user's sing out
+             */
             Delete["/quit"] = args =>
             {
                 var apiKey = Request.Headers.Authorization;
-                AuthorizationHelper.RemoveApiKey(apiKey);
+                AuthenticationHelper.RemoveApiKey(apiKey);
                 return new Response { StatusCode = HttpStatusCode.OK };
             };
 
+            /*
+             * user's sing up
+             */
             Get["/signup/login={login}&password={password}"] = parameters =>
             {
                 try
@@ -54,7 +64,7 @@ namespace Everyday_agend_server
 
                     Directory.CreateDirectory("C:\\Users\\g.dzesov\\server\\" + userid);
 
-                    var apiKey = AuthorizationHelper.ValidateUser(login, password);
+                    var apiKey = AuthenticationHelper.ValidateUser(login, password);
 
                     JsonUserModel m = new JsonUserModel
                     {

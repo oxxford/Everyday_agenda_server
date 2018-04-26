@@ -5,11 +5,14 @@ using System.Linq;
 
 namespace Everyday_agend_server
 {
-    class AuthorizationHelper
+    class AuthenticationHelper
     {
+        //A storage of all logged in users. Stores id and ApiKey - unique authentication identifier
         static readonly List<Tuple<int, string>> ActiveApiKeys = new List<Tuple<int, string>>();
-        //private static readonly List<Tuple<string, string>> Users = new List<Tuple<string, string>>();
-
+        
+        /*
+         * Get user entity from its authentication identifier
+         */
         public static Identity GetUserFromApiKey(string apiKey)
         {
             var activeKey = ActiveApiKeys.FirstOrDefault(x => x.Item2 == apiKey);
@@ -23,9 +26,11 @@ namespace Everyday_agend_server
             return new Identity(userId);
         }
 
+        /*
+         * Check presence of a user with such username and password. If exists - return its ApiKey
+         */
         public static string ValidateUser(string username, string password)
         {
-            //try to get a user from the "database" that matches the given username and password
             var userId = DatabaseAdapter.getUserId(username, password);
 
             if (userId == -1)
@@ -33,12 +38,14 @@ namespace Everyday_agend_server
                 return null;
             }
 
-            //now that the user is validated, create an api key that can be used for subsequent requests
             var apiKey = Guid.NewGuid().ToString();
             ActiveApiKeys.Add(new Tuple<int, string>(userId, apiKey));
             return apiKey;
         }
 
+        /*
+         * When user log out
+         */
         public static void RemoveApiKey(string apiKey)
         {
             var apiKeyToRemove = ActiveApiKeys.First(x => x.Item2 == apiKey);

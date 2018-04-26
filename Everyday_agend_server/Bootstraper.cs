@@ -9,10 +9,6 @@ namespace Everyday_agend_server
 {
     public class Bootstrapper : DefaultNancyBootstrapper
     {
-        //protected override DiagnosticsConfiguration DiagnosticsConfiguration
-        //    => new DiagnosticsConfiguration {Password = @"Innopolis"};
-
-
         protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
         {
             pipelines.BeforeRequest += ctx =>
@@ -27,9 +23,6 @@ namespace Everyday_agend_server
             };
 
 
-            //StaticConfiguration.EnableRequestTracing = true;
-            //StaticConfiguration.DisableErrorTraces = false;
-
             var configuration =
                 new StatelessAuthenticationConfiguration(ctx =>
                 {
@@ -39,7 +32,7 @@ namespace Everyday_agend_server
                     
                 });
 
-            AllowAccessToConsumingSite(pipelines);
+            //AllowAccessToConsumingSite(pipelines);
 
             StatelessAuthentication.Enable(pipelines, configuration);
         }

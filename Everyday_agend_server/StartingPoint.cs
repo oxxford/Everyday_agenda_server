@@ -13,8 +13,6 @@ namespace Everyday_agend_server
         {
             using (var host = new NancyHost(new Uri("http://localhost:8080")))
             {
-                DateTime date = new DateTime(2018, 01, 02);
-                Console.WriteLine(date.Year + "-" + date.Month + "-" + date.Day);
                 host.Start();
                 Console.WriteLine("Running on http://localhost:8080");
                 Console.ReadLine();
@@ -24,25 +22,51 @@ namespace Everyday_agend_server
 
     public class HelloModule : NancyModule
     {
-        public HelloModule()
+        public HelloModule() : base("")
         {
             Get["/"] = parameters =>
             {
                 //return Response.AsFile(@"C:\7\image112018.png","image/png");
+                
+                String fileName = "C:\\7\\video.mp4";
+               
+                var c = new FileStream(fileName, FileMode.Open);
 
-                //GenericFileResponse fileResponse = new GenericFileResponse(@"C:\7\image112018.png");
-                //return fileResponse;
+                byte[] buffer = new byte[c.Length];
 
+                var length = c.Read(buffer, 0,(int) c.Length);
+            
+                var response = new Response
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    ContentType = "video/mp4",
+                    Contents = stream =>
+                    {
+                        try
+                        {
+                            stream.Write(buffer, 0, buffer.Length);
+                        }
+                        catch (Exception) { }
+                    }
+                };
 
+                c.Close();
+
+                return response;
                 /*var response = new Response
                 {
-                    Headers = { ["Connection"] = "keep-alive", ["Content-Type"] = "video/mp4" },
-
-                    //ContentType = "video/mp4",
+                    Headers =
+                    {
+                        ["Content-Type"] = "video/mp4",
+                        ["Accept-Ranges"] = "bytes",
+                        ["Connection"] = "keep-alive",
+                        ["Date"] = DateTime.Today.ToString(),
+                        ["Etag"] = "1468800"
+                    },
 
                     Contents = s =>
                     {
-                        String fileName = @"C:\7\video112018.mp4";
+                        String fileName = "C:\\7\\video.mp4";
                         using (var stream = new FileStream(fileName, FileMode.Open))
                             stream.CopyTo(s);
                         s.Flush();
@@ -50,15 +74,12 @@ namespace Everyday_agend_server
                     }
                 };
 
-                string l = "";
-
-                Console.WriteLine(response.Headers.TryGetValue("Connection",out l));
+                Console.WriteLine(response.Headers.ContainsKey("Connection"));
 
                 return response;*/
                 //var stream = new FileStream(@"C:\7\video112018.mp4", FileMode.Open);
 
                 //return Response.FromStream(stream, "video/mp4").WithHeader("Connection", "keep-alive");
-                return ";";
             };
         }
     }

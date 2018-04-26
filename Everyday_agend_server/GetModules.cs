@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq.Expressions;
 using Nancy;
 
 
@@ -39,7 +40,12 @@ namespace Everyday_agend_server
                 {
                     String fileName = "C:\\Users\\g.dzesov\\server\\" + userId + "\\" + itemId + type;
                     using (var stream = new FileStream(fileName, FileMode.Open))
-                        stream.CopyTo(s);
+                        try
+                        {
+                            stream.CopyTo(s);
+                        }
+                        catch(Exception) { }
+
                     s.Flush();
                     s.Close();
                 }

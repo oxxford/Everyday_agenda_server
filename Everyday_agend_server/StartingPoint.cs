@@ -28,7 +28,7 @@ namespace Everyday_agend_server
             {
                 //return Response.AsFile(@"C:\7\image112018.png","image/png");
                 
-                String fileName = "C:\\7\\video.mp4";
+                String fileName = "C:\\7\\lol.mp4";
                
                 var c = new FileStream(fileName, FileMode.Open);
 

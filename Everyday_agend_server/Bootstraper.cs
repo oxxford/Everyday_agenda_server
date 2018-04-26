@@ -32,7 +32,7 @@ namespace Everyday_agend_server
                     
                 });
 
-            //AllowAccessToConsumingSite(pipelines);
+            AllowAccessToConsumingSite(pipelines);
 
             StatelessAuthentication.Enable(pipelines, configuration);
         }

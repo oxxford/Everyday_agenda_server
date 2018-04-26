@@ -31,25 +31,31 @@ namespace Everyday_agend_server
 
         private Response createFileResponse(String contentType, int userId, String itemId, String type)
         {
+            String fileName = "C:\\Users\\g.dzesov\\server\\" + userId + "\\" + itemId + type;
 
-            return new Response
+            var c = new FileStream(fileName, FileMode.Open);
+
+            byte[] buffer = new byte[c.Length];
+
+            var length = c.Read(buffer, 0, (int)c.Length);
+
+            var response = new Response
             {
+                StatusCode = HttpStatusCode.OK,
                 ContentType = contentType,
-
-                Contents = s =>
+                Contents = stream =>
                 {
-                    String fileName = "C:\\Users\\g.dzesov\\server\\" + userId + "\\" + itemId + type;
-                    using (var stream = new FileStream(fileName, FileMode.Open))
-                        try
-                        {
-                            stream.CopyTo(s);
-                        }
-                        catch(Exception) { }
-
-                    s.Flush();
-                    s.Close();
+                    try
+                    {
+                        stream.Write(buffer, 0, buffer.Length);
+                    }
+                    catch (Exception) { }
                 }
             };
+
+            c.Close();
+
+            return response;
 
         }
     }

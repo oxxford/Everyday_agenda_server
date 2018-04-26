@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Everyday_agend_server
 {
-    class AuthenticationHelper
+    public class AuthenticationHelper
     {
         //A storage of all logged in users. Stores id and ApiKey - unique authentication identifier
         static readonly List<Tuple<int, string>> ActiveApiKeys = new List<Tuple<int, string>>();

@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 
 namespace Everyday_agend_server
 {
-    static class DatabaseAdapter
+    public static class DatabaseAdapter
     {
         private static string server = "server=dzesov.me;";
         private static string user = "user=dima;";

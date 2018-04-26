@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Everyday_agend_server", "Everyday_agend_server\Everyday_agend_server.csproj", "{8F2366CF-F8E5-49C3-B7DE-06B06E90A237}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{62082873-6825-44D2-9962-CCBA62EC2B53}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8F2366CF-F8E5-49C3-B7DE-06B06E90A237}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F2366CF-F8E5-49C3-B7DE-06B06E90A237}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F2366CF-F8E5-49C3-B7DE-06B06E90A237}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62082873-6825-44D2-9962-CCBA62EC2B53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62082873-6825-44D2-9962-CCBA62EC2B53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62082873-6825-44D2-9962-CCBA62EC2B53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62082873-6825-44D2-9962-CCBA62EC2B53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
